@@ -6,6 +6,8 @@ import javafx.scene.layout.VBox;
 
 public class ColorRadioGroup extends VBox {
     public ColorRadioGroup() {
+        ToggleGroup toggleGroup = new ToggleGroup();
+
         RadioButton rb1 = new RadioButton("Red");
         RadioButton rb2 = new RadioButton("Blue");
         RadioButton rb3 = new RadioButton("Green");
@@ -14,7 +16,6 @@ public class ColorRadioGroup extends VBox {
         RadioButton rb6 = new RadioButton("orange");
         RadioButton rb7 = new RadioButton("black");
 
-        ToggleGroup toggleGroup = new ToggleGroup();
         rb1.setToggleGroup(toggleGroup);
         rb2.setToggleGroup(toggleGroup);
         rb3.setToggleGroup(toggleGroup);
@@ -23,6 +24,7 @@ public class ColorRadioGroup extends VBox {
         rb6.setToggleGroup(toggleGroup);
         rb7.setToggleGroup(toggleGroup);
 
+        toggleGroup.selectToggle(rb1);
         toggleGroup.selectedToggleProperty().addListener((observable, oldVal, newVal) -> System.out.println(newVal + " was selected"));
 
         getChildren().addAll(rb1, rb2, rb3, rb4, rb5, rb6, rb7);

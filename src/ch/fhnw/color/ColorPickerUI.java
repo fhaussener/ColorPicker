@@ -6,24 +6,31 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class ColorPickerUI extends HBox {
-    public ColorPickerUI() {
+    private final ColorMixerPM pm;
+
+    public ColorPickerUI(ColorMixerPM pm) {
+        this.pm = pm;
+
         VBox left = new VBox();
-        ColorSliders colorSliders = new ColorSliders();
+        ColorSliders colorSliders = new ColorSliders(pm);
         Rectangle colorField = new Rectangle(400, 50);
-        colorField.setFill(Color.MAGENTA);
         colorField.setStroke(Color.BLACK);
-        left.getChildren().addAll(colorSliders,colorField);
+        colorField.fillProperty().bind(pm.mixedColorProperty());
+        left.getChildren().addAll(colorSliders, colorField);
 
         VBox right = new VBox();
+        // top right: input fields for rgb and hex
         HBox textFieldsContainer = new HBox();
         ColorTextFieldsHEX hexFields = new ColorTextFieldsHEX();
-        ColorTextFieldsRGB rgbFields = new ColorTextFieldsRGB();
+        ColorTextFieldsRGB rgbFields = new ColorTextFieldsRGB(pm);
         textFieldsContainer.getChildren().addAll(rgbFields, hexFields);
+
+        //bottom right: darkerbtns and radiogroup
         HBox bottomRightContainer = new HBox();
         DarkerBrighterButtons darkerBrighterButtons = new DarkerBrighterButtons();
         ColorRadioGroup radioGroup = new ColorRadioGroup();
-        bottomRightContainer.getChildren().addAll(radioGroup,darkerBrighterButtons);
-        right.getChildren().addAll(textFieldsContainer,bottomRightContainer);
+        bottomRightContainer.getChildren().addAll(radioGroup, darkerBrighterButtons);
+        right.getChildren().addAll(textFieldsContainer, bottomRightContainer);
 
 
         getChildren().addAll(left, right);

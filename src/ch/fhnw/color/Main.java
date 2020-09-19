@@ -9,8 +9,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Parent pickerUi = new ColorPickerUI();
-        Scene scene = new Scene(pickerUi,1000, 550);
+        ColorMixerPM pm = new ColorMixerPM();
+        Parent pickerUi = new ColorPickerUI(pm);
+        Scene scene = new Scene(pickerUi,600, 400);
 
         primaryStage.setScene(scene);
 
