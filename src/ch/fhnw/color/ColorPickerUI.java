@@ -28,7 +28,7 @@ public class ColorPickerUI extends HBox {
         //bottom right: darkerbtns and radiogroup
         HBox bottomRightContainer = new HBox();
         DarkerBrighterButtons darkerBrighterButtons = new DarkerBrighterButtons();
-        ColorRadioGroup radioGroup = new ColorRadioGroup();
+        ColorRadioGroup radioGroup = new ColorRadioGroup(pm);
         bottomRightContainer.getChildren().addAll(radioGroup, darkerBrighterButtons);
         right.getChildren().addAll(textFieldsContainer, bottomRightContainer);
 

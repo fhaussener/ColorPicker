@@ -9,7 +9,7 @@ public class ColorMixerPM {
     private final IntegerProperty green = new SimpleIntegerProperty();
     private final IntegerProperty blue = new SimpleIntegerProperty();
 
-    private int selectedRadio;
+    private final IntegerProperty selectedRadio = new SimpleIntegerProperty();
 
     public void setMixedColor(Color mixedColor) {
         this.mixedColor.set(mixedColor);
@@ -24,7 +24,6 @@ public class ColorMixerPM {
         for (PredefinedColors color : PredefinedColors.values()) {
             if (r == color.getR() && g == color.getG() && b == color.getB()) {
                 matchIndex = color.ordinal();
-
             }
         }
         return matchIndex;
@@ -50,16 +49,36 @@ public class ColorMixerPM {
             int match = checkRadioMatch(newValue);
             setSelectedRadio(match);
         });
+
+
+        selectedRadio.addListener((observable, oldValue, newValue) -> {
+            PredefinedColors color = PredefinedColors.values()[(int) newValue];
+            setMixedColor(javafx.scene.paint.Color.rgb(color.getR(), color.getG(), color.getB()));
+        });
+
     }
 
-    public int getSelectedRadio() {
+    public IntegerProperty selectedRadioProperty() {
         return selectedRadio;
+    }
+    public int getSelectedRadio() {
+        return selectedRadio.get();
     }
 
     public void setSelectedRadio(int selectedRadio) {
-        this.selectedRadio = selectedRadio;
+        this.selectedRadio.set(selectedRadio);
     }
 
+    public void setSelectedRadio(String selectedRadio) {
+        int matchIndex = 0;
+        for (PredefinedColors color : PredefinedColors.values()) {
+            if(color.name() == selectedRadio){
+                matchIndex = color.ordinal();
+            }
+        }
+
+        this.selectedRadio.set(matchIndex);
+    }
 
     public int getRed() {
         return red.get();
